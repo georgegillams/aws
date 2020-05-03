@@ -1,4 +1,3 @@
 cd /home/ubuntu/georgegillams.co.uk
-npm ci
-npm run build:aws
+PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
 # TODO Add other project redeploys here

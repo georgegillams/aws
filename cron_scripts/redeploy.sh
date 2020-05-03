@@ -9,7 +9,11 @@ if [ ! -f ../buildInProgress ]; then
     sudo git fetch && sudo git reset --hard origin/master && sudo git pull
     echo "updating dependencies"
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
-    rm -rf build && mv newBuild/build build
+    echo "removing old build files"
+    rm -rf build/*
+    echo "installing new build"
+    mv newBuild/build/* build/
+    echo "cleaning up"
     rm -rf newBuild
     sleep 5
     echo "completing deploy"
