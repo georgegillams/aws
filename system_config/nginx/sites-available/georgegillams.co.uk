@@ -36,9 +36,9 @@ server {
   # ssl_certificate_key /etc/openssl/privkey.key;
 
   # Let's encrypt:
-  ssl_certificate /etc/letsencrypt/live/georgegillams.co.uk/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/georgegillams.co.uk/privkey.pem;
-  include /etc/letsencrypt/options-ssl-nginx.conf;
+  # ssl_certificate /etc/letsencrypt/live/georgegillams.co.uk/fullchain.pem;
+  # ssl_certificate_key /etc/letsencrypt/live/georgegillams.co.uk/privkey.pem;
+  # include /etc/letsencrypt/options-ssl-nginx.conf;
 
   location / {
     proxy_pass http://127.0.0.1:3000;
