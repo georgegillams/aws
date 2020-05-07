@@ -22,4 +22,17 @@ These scripts are responsible for
  - Running regular cron tasks:
    - Renewing certificates.
    - Redeploying individual projects - if a `build.zip` file has been pushed to a project, it will be extracted and replace the existing `build` directory within that project.
- - 
+
+## Project ports
+
+Nginx will forward traffic for the follow apps to ports as follows:
+
+| domain                           | port |
+| -------------------------------- | ---- |
+| default_site                     | 3000 |
+| www.georgegillams.co.uk          | 3000 |
+| georgegillams.co.uk              | 3000 |
+| www.screen-reader-adventures.com | 3001 |
+| screen-reader-adventures.com     | 3001 |
+| wedding.georgegillams.co.uk      | 3002 |
+| www.wedding.georgegillams.co.uk  | 3002 |
