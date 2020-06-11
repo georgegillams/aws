@@ -13,6 +13,8 @@ if [ ! -f ../buildInProgress ]; then
     rm -rf build/*
     echo "installing new build"
     mv newBuild/build/* build/
+    echo "setting write permissions on built files"
+    chmod -R ugo+rw build
     echo "cleaning up"
     rm -rf newBuild
     sleep 5
