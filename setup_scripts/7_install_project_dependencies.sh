@@ -10,4 +10,7 @@ mkdir build
 cd /home/ubuntu/gg-components
 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
 mkdir build
+cd /home/ubuntu/webapp-boilerplate
+PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
+mkdir build
 # TODO Add other project redeploys here
