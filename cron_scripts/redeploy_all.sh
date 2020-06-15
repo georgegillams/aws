@@ -8,4 +8,6 @@ cd /home/ubuntu/cgwedding
 . /home/ubuntu/aws/cron_scripts/redeploy.sh
 cd /home/ubuntu/gg-components
 . /home/ubuntu/aws/cron_scripts/redeploy.sh
+cd /home/ubuntu/webapp-boilerplate
+. /home/ubuntu/aws/cron_scripts/redeploy.sh
 # TODO Add other project redeploys here

@@ -11,6 +11,8 @@ cd /home/ubuntu/cgwedding
 pm2 start /home/ubuntu/aws/pm2_configs/cgwedding/ecosystem.config.js
 cd /home/ubuntu/gg-components
 pm2 start /home/ubuntu/aws/pm2_configs/gg-components/ecosystem.config.js
+cd /home/ubuntu/webapp-boilerplate
+pm2 start /home/ubuntu/aws/pm2_configs/webapp-boilerplate/ecosystem.config.js
 # TODO Add other project pm2 scripts here
 
 pm2 save
