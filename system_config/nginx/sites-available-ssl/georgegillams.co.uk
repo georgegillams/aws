@@ -12,7 +12,17 @@ server {
 }
 
 server {
-  server_name  georgegillams.co.uk www.georgegillams.co.uk;
+  server_name  georgegillams.co.uk;
+  root         /usr/share/nginx/html;
+
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+  
+  return 301 https://www.georgegillams.co.uk$request_uri;
+}
+
+server {
+  server_name  www.georgegillams.co.uk;
   root         /usr/share/nginx/html;
 
   error_page   404  /404.html;

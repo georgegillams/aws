@@ -12,7 +12,17 @@ server {
 }
 
 server {
-  server_name  screen-reader-adventures.com www.screen-reader-adventures.com;
+  server_name  screen-reader-adventures.com;
+  root         /usr/share/nginx/html;
+
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+  
+  return 301 https://www.screen-reader-adventures.com$request_uri;
+}
+
+server {
+  server_name  www.screen-reader-adventures.com;
   root         /usr/share/nginx/html;
 
   error_page   404  /404.html;
