@@ -12,7 +12,17 @@ server {
 }
 
 server {
-  server_name storybook.georgegillams.co.uk www.storybook.georgegillams.co.uk;
+  server_name  www.storybook.georgegillams.co.uk;
+  root         /usr/share/nginx/html;
+
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+  
+  return 301 https://storybook.georgegillams.co.uk$request_uri;
+}
+
+server {
+  server_name  storybook.georgegillams.co.uk;
   root         /usr/share/nginx/html;
 
   error_page   404  /404.html;
