@@ -5,6 +5,8 @@ pm2 start /home/ubuntu/aws/pm2_configs/redis/ecosystem.config.js
 
 cd /home/ubuntu/georgegillams.co.uk
 pm2 start /home/ubuntu/aws/pm2_configs/georgegillams.co.uk/ecosystem.config.js
+cd /home/ubuntu/beta.georgegillams.co.uk
+pm2 start /home/ubuntu/aws/pm2_configs/beta.georgegillams.co.uk/ecosystem.config.js
 cd /home/ubuntu/screen-reader-adventures
 pm2 start /home/ubuntu/aws/pm2_configs/screen-reader-adventures/ecosystem.config.js
 cd /home/ubuntu/cgwedding
