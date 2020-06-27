@@ -32,6 +32,7 @@ Nginx will forward traffic for the follow apps to ports as follows:
 | default_site                                | 3000 |
 | www.georgegillams.co.uk                     | 3000 |
 | georgegillams.co.uk                         | 3000 |
+| beta.georgegillams.co.uk                    | 3005 |
 | www.screen-reader-adventures.com            | 3001 |
 | screen-reader-adventures.com                | 3001 |
 | wedding.georgegillams.co.uk                 | 3002 |
