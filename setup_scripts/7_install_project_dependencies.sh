@@ -10,6 +10,9 @@ mkdir build
 cd /home/ubuntu/cgwedding
 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
 mkdir build
+cd /home/ubuntu/beta.cgwedding
+PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
+mkdir build
 cd /home/ubuntu/gg-components
 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
 mkdir build

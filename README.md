@@ -14,29 +14,31 @@ cd /home/ubuntu/aws
 ## Responsibility boundaries
 
 These scripts are responsible for
- - Getting certificates for each site.
- - Configuring nginx to direct requests to running servers.
- - Configuring nginx errors to be slightly more exciting/useful than the default ones.
- - Running redis under pm2.
- - Running servers under pm2. The pm2 jobs will run scripts within each repo. The repos themselves are responsible for deciding what should be inside the scripts.
- - Running regular cron tasks:
-   - Renewing certificates.
-   - Redeploying individual projects - if a `build.zip` file has been pushed to a project, it will be extracted and replace the existing `build` directory within that project.
+
+- Getting certificates for each site.
+- Configuring nginx to direct requests to running servers.
+- Configuring nginx errors to be slightly more exciting/useful than the default ones.
+- Running redis under pm2.
+- Running servers under pm2. The pm2 jobs will run scripts within each repo. The repos themselves are responsible for deciding what should be inside the scripts.
+- Running regular cron tasks:
+  - Renewing certificates.
+  - Redeploying individual projects - if a `build.zip` file has been pushed to a project, it will be extracted and replace the existing `build` directory within that project.
 
 ## Project ports
 
 Nginx will forward traffic for the follow apps to ports as follows:
 
-| domain                                      | port |
-| ------------------------------------------- | ---- |
-| default_site                                | 3000 |
-| www.georgegillams.co.uk                     | 3000 |
-| georgegillams.co.uk                         | 3000 |
-| beta.georgegillams.co.uk                    | 3005 |
-| www.screen-reader-adventures.com            | 3001 |
-| screen-reader-adventures.com                | 3001 |
-| wedding.georgegillams.co.uk                 | 3002 |
-| www.wedding.georgegillams.co.uk             | 3002 |
-| storybook.georgegillams.co.uk               | 3003 |
-| webapp-boilerplate.georgegillams.co.uk      | 3004 |
-| www.webapp-boilerplate.georgegillams.co.uk  | 3004 |
+| domain                                     | port |
+| ------------------------------------------ | ---- |
+| default_site                               | 3000 |
+| www.georgegillams.co.uk                    | 3000 |
+| georgegillams.co.uk                        | 3000 |
+| beta.georgegillams.co.uk                   | 3005 |
+| www.screen-reader-adventures.com           | 3001 |
+| screen-reader-adventures.com               | 3001 |
+| wedding.georgegillams.co.uk                | 3002 |
+| www.wedding.georgegillams.co.uk            | 3002 |
+| beta.wedding.georgegillams.co.uk           | 3006 |
+| storybook.georgegillams.co.uk              | 3003 |
+| webapp-boilerplate.georgegillams.co.uk     | 3004 |
+| www.webapp-boilerplate.georgegillams.co.uk | 3004 |
