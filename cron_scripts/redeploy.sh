@@ -6,7 +6,7 @@ if [ ! -f ../buildInProgress ]; then
     sleep 5 # wait to ensure the file transfer is complete
     unzip build -d newBuild
     rm build.zip
-    sudo git fetch && sudo git reset --hard origin/master && sudo git pull
+    git fetch && git reset --hard origin/master && git pull
     echo "updating dependencies"
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
     echo "removing old build files"
