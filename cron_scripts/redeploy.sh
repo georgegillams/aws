@@ -8,7 +8,6 @@ if [ ! -f ../buildInProgress ]; then
     rm build.zip
     git fetch
     git reset --hard origin/main || true
-    git reset --hard origin/master || true
     git pull
     echo "updating dependencies"
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
