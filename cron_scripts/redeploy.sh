@@ -6,6 +6,7 @@ if [ ! -f ../buildInProgress ]; then
     sleep 5 # wait to ensure the file transfer is complete
     unzip build -d newBuild
     rm build.zip
+    . ~/aws/other_scripts/fix-ssh.sh
     git fetch
     git reset --hard origin/main || true
     git pull
