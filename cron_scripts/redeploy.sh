@@ -11,7 +11,8 @@ if [ ! -f ../buildInProgress ]; then
     git reset --hard origin/main || true
     git pull
     echo "updating dependencies"
-    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci
+    # TODO PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci --only=prod
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci # TODO REMOVE
     echo "removing old build files"
     rm -rf build/*
     echo "installing new build"
