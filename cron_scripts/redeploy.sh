@@ -7,10 +7,10 @@ if [ ! -f ../buildInProgress ]; then
     unzip build -d newBuild
     rm build.zip
 
-    if [ -f newBuild/package.json ]; then
+    if [ -f newBuild/build/package.json ]; then
       echo "updating package files"
-      cp newBuild/package.json ./
-      cp newBuild/package-lock.json ./
+      mv newBuild/build/package.json ./
+      mv newBuild/build/package-lock.json ./
     fi
 
     echo "updating dependencies"
