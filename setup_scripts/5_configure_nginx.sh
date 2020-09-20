@@ -8,7 +8,7 @@ sudo cp ./system_config/nginx/sites-available/* /etc/nginx/sites-available/
 
 sudo ln -s /etc/nginx/sites-available/georgegillams.co.uk /etc/nginx/sites-enabled/ || true
 sudo ln -s /etc/nginx/sites-available/screen-reader-adventures.com /etc/nginx/sites-enabled/ || true
-sudo ln -s /etc/nginx/sites-available/wedding.georgegillams.co.uk /etc/nginx/sites-enabled/ || true
+sudo ln -s /etc/nginx/sites-available/charlieandgeorge.uk /etc/nginx/sites-enabled/ || true
 sudo ln -s /etc/nginx/sites-available/storybook.georgegillams.co.uk /etc/nginx/sites-enabled/ || true
 sudo ln -s /etc/nginx/sites-available/webapp-boilerplate.georgegillams.co.uk /etc/nginx/sites-enabled/ || true
 # TODO add other projects here...

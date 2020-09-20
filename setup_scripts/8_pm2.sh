@@ -9,8 +9,8 @@ pm2 start /home/ubuntu/aws/pm2_configs/georgegillams.co.uk/ecosystem.config.js
 cd /home/ubuntu/screen-reader-adventures
 pm2 start /home/ubuntu/aws/pm2_configs/screen-reader-adventures/ecosystem.config.js
 
-cd /home/ubuntu/cgwedding
-pm2 start /home/ubuntu/aws/pm2_configs/cgwedding/ecosystem.config.js
+cd /home/ubuntu/beta.cgwedding
+pm2 start /home/ubuntu/aws/pm2_configs/beta.cgwedding/ecosystem.config.js
 
 cd /home/ubuntu/gg-components
 pm2 start /home/ubuntu/aws/pm2_configs/gg-components/ecosystem.config.js

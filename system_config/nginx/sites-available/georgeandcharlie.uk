@@ -1,9 +1,9 @@
 server {
-  server_name  beta.wedding.georgegillams.co.uk;
+  server_name  charlieandgeorge.uk www.charlieandgeorge.uk;
   root         /usr/share/nginx/html;
 
-  listen 80;
-  listen [::]:80;
+  listen 80 default_server;
+  listen [::]:80 default_server;
 
   # Redirect non-https traffic to https
   if ($scheme != "https") {
@@ -12,7 +12,17 @@ server {
 }
 
 server {
-  server_name  beta.wedding.georgegillams.co.uk;
+  server_name  charlieandgeorge.uk;
+  root         /usr/share/nginx/html;
+
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+  
+  return 301 https://www.charlieandgeorge.uk$request_uri;
+}
+
+server {
+  server_name  www.charlieandgeorge.uk;
   root         /usr/share/nginx/html;
 
   error_page   404  /404.html;
@@ -25,17 +35,17 @@ server {
       root   /var/www/html/errors;
   }
 
-  listen 443 ssl http2;
-  listen [::]:443 ssl http2;
+  listen 443 ssl http2 default_server;
+  listen [::]:443 ssl http2 default_server;
 
   # ssl_dhparam "/etc/pki/nginx/dhparams.pem";
   # add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
-  # ssl_certificate /etc/letsencrypt/live/beta.wedding.georgegillams.co.uk/fullchain.pem;
-  # ssl_certificate_key /etc/letsencrypt/live/beta.wedding.georgegillams.co.uk/privkey.pem;
+  # ssl_certificate /etc/letsencrypt/live/charlieandgeorge.uk/fullchain.pem;
+  # ssl_certificate_key /etc/letsencrypt/live/charlieandgeorge.uk/privkey.pem;
   # include /etc/letsencrypt/options-ssl-nginx.conf;
 
   location / {
-    proxy_pass http://127.0.0.1:3002;
+    proxy_pass http://127.0.0.1:3006;
     proxy_set_header        X-Real-IP       $remote_addr;
     proxy_set_header        Host            $host;
     proxy_redirect          off;

@@ -8,7 +8,7 @@ cd /home/ubuntu/screen-reader-adventures
 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci # TODO REMOVE
 mkdir build
 
-cd /home/ubuntu/cgwedding
+cd /home/ubuntu/beta.cgwedding
 # TODO PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci --only=prod
 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci # TODO REMOVE
 mkdir build

@@ -35,8 +35,8 @@ Nginx will forward traffic for the follow apps to ports as follows:
 | georgegillams.co.uk                        | 3000 |
 | www.screen-reader-adventures.com           | 3001 |
 | screen-reader-adventures.com               | 3001 |
-| wedding.georgegillams.co.uk                | 3002 |
-| www.wedding.georgegillams.co.uk            | 3002 |
 | storybook.georgegillams.co.uk              | 3003 |
 | webapp-boilerplate.georgegillams.co.uk     | 3004 |
 | www.webapp-boilerplate.georgegillams.co.uk | 3004 |
+| charlieandgeorge.uk                        | 3006 |
+| www.charlieandgeorge.uk                    | 3006 |
