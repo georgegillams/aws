@@ -23,4 +23,8 @@ cd /home/ubuntu/webapp-boilerplate
 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci # TODO REMOVE
 mkdir build
 
+cd /home/ubuntu/card-challenge
+PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci --only=prod
+mkdir build
+
 # TODO Add other project redeploys here

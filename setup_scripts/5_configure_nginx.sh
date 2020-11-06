@@ -11,6 +11,7 @@ sudo ln -s /etc/nginx/sites-available/screen-reader-adventures.com /etc/nginx/si
 sudo ln -s /etc/nginx/sites-available/charlieandgeorge.uk /etc/nginx/sites-enabled/ || true
 sudo ln -s /etc/nginx/sites-available/storybook.georgegillams.co.uk /etc/nginx/sites-enabled/ || true
 sudo ln -s /etc/nginx/sites-available/webapp-boilerplate.georgegillams.co.uk /etc/nginx/sites-enabled/ || true
+sudo ln -s /etc/nginx/sites-available/cardchallenge.georgegillams.co.uk /etc/nginx/sites-enabled/ || true
 # TODO add other projects here...
 
 sudo service nginx restart

@@ -18,6 +18,9 @@ pm2 start /home/ubuntu/aws/pm2_configs/gg-components/ecosystem.config.js
 cd /home/ubuntu/webapp-boilerplate
 pm2 start /home/ubuntu/aws/pm2_configs/webapp-boilerplate/ecosystem.config.js
 
+cd /home/ubuntu/card-challenge
+pm2 start /home/ubuntu/aws/pm2_configs/card-challenge/ecosystem.config.js
+
 # TODO Add other project pm2 scripts here
 
 pm2 save
