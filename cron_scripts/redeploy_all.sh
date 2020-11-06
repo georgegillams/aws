@@ -15,4 +15,7 @@ cd /home/ubuntu/gg-components
 cd /home/ubuntu/webapp-boilerplate
 . /home/ubuntu/aws/cron_scripts/redeploy.sh
 
+cd /home/ubuntu/card-challenge
+. /home/ubuntu/aws/cron_scripts/redeploy.sh
+
 # TODO Add other project redeploys here
