@@ -40,3 +40,5 @@ Nginx will forward traffic for the follow apps to ports as follows:
 | www.webapp-boilerplate.georgegillams.co.uk | 3004 |
 | charlieandgeorge.uk                        | 3006 |
 | www.charlieandgeorge.uk                    | 3006 |
+| cardchallenge.georgegillams.co.uk          | 3007 |
+| www.cardchallenge.georgegillams.co.uk      | 3007 |
