@@ -1,9 +1,10 @@
 module.exports = {
   apps: [
     {
-      name: 'screen-reader-adventures.com',
-      script: './config/aws/start_aws.sh',
-      watch: ['build'],
+      name: "screen-reader-adventures.com",
+      script: "./config/aws/start_aws.sh",
+      max_memory_restart: "15M",
+      watch: ["build"],
       // Delay between restart
       watch_delay: 1000,
       ignore_watch: [],
