@@ -13,6 +13,12 @@ if [ ! -f ../buildInProgress ]; then
       mv newBuild/build/package-lock.json ./
     fi
 
+    if [ -f newBuild/build/gg-webapp-dist ]; then
+      echo "installing gg-webapp bundle"
+      rm -rf ./gg-webapp/dist
+      mv newBuild/build/gg-webapp-dist ./gg-webapp/
+    fi
+
     echo "updating dependencies"
     # TODO PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci --only=prod
     PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm ci # TODO REMOVE
