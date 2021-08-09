@@ -25,4 +25,5 @@ PATH=/home/ubuntu/.nvm/versions/node/v12.14.0/bin:/usr/local/sbin:/usr/local/bin
 # m h  dom mon dow   command
 45 00 * * * date >> /home/ubuntu/renew_log.txt && cd /home/ubuntu/aws && . ./cron_scripts/renew_certificates.sh >> /home/ubuntu/renew_log.txt
 * * * * * date >> /home/ubuntu/redeploy_log.txt && cd /home/ubuntu/aws && . ./cron_scripts/redeploy_all.sh >> /home/ubuntu/redeploy_log.txt
+* * * * * date >> /home/ubuntu/neo/redeploy_log.txt && cd /home/ubuntu/neo && . /home/ubuntu/aws/cron_scripts/neo_redeploy.sh >> /home/ubuntu/neo/redeploy_log.txt
 #

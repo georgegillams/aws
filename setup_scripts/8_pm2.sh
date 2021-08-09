@@ -1,5 +1,7 @@
 pm2 startup | grep sudo | bash
 
+# TODO - no longer needed with NEO
+
 cd /home/ubuntu/aws
 pm2 start /home/ubuntu/aws/pm2_configs/redis/ecosystem.config.js
 

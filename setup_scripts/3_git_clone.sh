@@ -1,4 +1,7 @@
 cd /home/ubuntu
+mkdir neo
+
+# TODO - no longer needed with NEO
 git clone https://github.com/georgegillams/georgegillams.co.uk.git
 git clone https://github.com/georgegillams/screen-reader-adventures.git
 git clone https://github.com/georgegillams/beta.cgwedding
