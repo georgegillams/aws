@@ -1,6 +1,6 @@
 # aws
 
-This is a collection of scripts and tools used to manage my AWS instance.
+This is a collection of scripts and tools used to manage my AWS instance and the processes/sites I have running inside it
 
 ## Setup
 
@@ -19,10 +19,19 @@ These scripts are responsible for
 - Configuring nginx to direct requests to running servers.
 - Configuring nginx errors to be slightly more exciting/useful than the default ones.
 - Running redis under pm2.
-- Running servers under pm2. The pm2 jobs will run scripts within each repo. The repos themselves are responsible for deciding what should be inside the scripts.
 - Running regular cron tasks:
   - Renewing certificates.
   - Redeploying individual projects - if a `build.zip` file has been pushed to a project, it will be extracted and replace the existing `build` directory within that project.
+
+For a project to be deployed under the NEO system:
+
+- A zip folder should be transferred to `/home/ubuntu/neo/newBuild-HASH` where `HASH` is some unique value.
+- The zip should contain two scripts: `/config/aws/setup.sh` and `/config/aws/redeploy.sh`
+- `setup.sh` should do anything that's needed to make the project work (install dependencies etc).
+- `redeploy.sh` should:
+  - stop the existing pm2 process
+  - start the new pm2 process
+  - remove old deploys
 
 ## Project ports
 
