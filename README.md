@@ -25,13 +25,10 @@ These scripts are responsible for
 
 For a project to be deployed under the NEO system:
 
-- A zip folder should be transferred to `/home/ubuntu/neo/newBuild-HASH` where `HASH` is some unique value.
-- The zip should contain two scripts: `/config/aws/setup.sh` and `/config/aws/redeploy.sh`
+- A zip folder should be transferred to `/home/ubuntu/neo/` named `PROJECT-TIMESTAMP.zip`.
+- The zip should contain a file `/config/aws/pm2Name` containing the PM2 instance name and nothing else.
+- The zip should contain a setup script `/config/aws/setup.sh` if required.
 - `setup.sh` should do anything that's needed to make the project work (install dependencies etc).
-- `redeploy.sh` should:
-  - stop the existing pm2 process
-  - start the new pm2 process
-  - remove old deploys
 
 ## Project ports
 
