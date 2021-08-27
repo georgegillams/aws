@@ -1,0 +1,40 @@
+{
+  "sites": [
+    {
+      "default": true,
+      "port": 3000,
+      "server_name": "georgegillams.co.uk",
+      "redirect_to_www": true
+    },
+    {
+      "port": 3006,
+      "server_name": "charlieandgeorge.uk",
+      "redirect_to_www": true
+    },
+    {
+      "port": 3001,
+      "server_name": "screen-reader-adventures.com",
+      "redirect_to_www": true
+    },
+    {
+      "port": 3003,
+      "server_name": "storybook.georgegillams.co.uk",
+      "redirect_to_www": false
+    },
+    {
+      "port": 3004,
+      "server_name": "webapp-boilerplate.georgegillams.co.uk",
+      "redirect_to_www": false
+    },
+    {
+      "port": 3004,
+      "server_name": "webapp-boilerplate.georgegillams.co.uk",
+      "redirect_to_www": false
+    },
+    {
+      "port": 3007,
+      "server_name": "cardchallenge.georgegillams.co.uk",
+      "redirect_to_www": false
+    }
+  ]
+}

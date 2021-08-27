@@ -41,7 +41,7 @@ cd $extractedDir
 # run config/aws/setup.sh
 if [ -f config/aws/setup.sh ]; then
   echo "Running setup script"
-  ./config/aws/setup.sh
+  . config/aws/setup.sh
 else
   echo "No setup script to run"
 fi
