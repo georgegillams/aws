@@ -1,5 +1,5 @@
 server {
-  server_name  screen-reader-adventures.com www.screen-reader-adventures.com;
+  server_name screen-reader-adventures.com www.screen-reader-adventures.com;
   root         /usr/share/nginx/html;
 
   listen 80;
@@ -12,7 +12,7 @@ server {
 }
 
 server {
-  server_name  screen-reader-adventures.com;
+  server_name screen-reader-adventures.com;
   root         /usr/share/nginx/html;
 
   listen 443 ssl http2;
@@ -22,7 +22,7 @@ server {
 }
 
 server {
-  server_name  www.screen-reader-adventures.com;
+  server_name www.screen-reader-adventures.com;
   root         /usr/share/nginx/html;
 
   error_page   404  /404.html;

@@ -1,5 +1,5 @@
 server {
-  server_name  georgegillams.co.uk www.georgegillams.co.uk;
+  server_name georgegillams.co.uk www.georgegillams.co.uk;
   root         /usr/share/nginx/html;
 
   listen 80 default_server;
@@ -12,7 +12,7 @@ server {
 }
 
 server {
-  server_name  georgegillams.co.uk;
+  server_name georgegillams.co.uk;
   root         /usr/share/nginx/html;
 
   listen 443 ssl http2;
@@ -22,7 +22,7 @@ server {
 }
 
 server {
-  server_name  www.georgegillams.co.uk;
+  server_name www.georgegillams.co.uk;
   root         /usr/share/nginx/html;
 
   error_page   404  /404.html;

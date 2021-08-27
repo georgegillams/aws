@@ -1,5 +1,5 @@
 server {
-  server_name  charlieandgeorge.uk www.charlieandgeorge.uk;
+  server_name charlieandgeorge.uk www.charlieandgeorge.uk;
   root         /usr/share/nginx/html;
 
   listen 80;
@@ -12,7 +12,7 @@ server {
 }
 
 server {
-  server_name  charlieandgeorge.uk;
+  server_name charlieandgeorge.uk;
   root         /usr/share/nginx/html;
 
   listen 443 ssl http2;
@@ -28,7 +28,7 @@ server {
 }
 
 server {
-  server_name  www.charlieandgeorge.uk;
+  server_name www.charlieandgeorge.uk;
   root         /usr/share/nginx/html;
 
   error_page   404  /404.html;
