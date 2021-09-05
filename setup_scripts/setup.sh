@@ -1,4 +1,4 @@
-# #!/bin/bash
+#!/bin/bash
 
 (. ./setup_scripts/1_dns.sh)
 (. ./setup_scripts/2_bashrc.sh)

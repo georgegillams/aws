@@ -1,4 +1,4 @@
-# #!/bin/bash
+#!/bin/bash
 
 if [ ! -f ../buildInProgress ]; then
   if [ -f build.zip ]; then

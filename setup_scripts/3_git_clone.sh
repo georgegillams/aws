@@ -1,5 +1,6 @@
 cd /home/ubuntu
 mkdir neo
+mkdir neoserver
 
 # TODO - no longer needed with NEO
 git clone https://github.com/georgegillams/georgegillams.co.uk.git

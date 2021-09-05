@@ -1,4 +1,4 @@
-# #!/bin/bash
+#!/bin/bash
 
 cd /home/ubuntu/georgegillams.co.uk
 . /home/ubuntu/aws/cron_scripts/redeploy.sh
