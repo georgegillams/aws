@@ -1,0 +1,12 @@
+{
+  "name": "sample-deployable-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "PORT=3000 http-server ./src/"
+  },
+  "dependencies": {
+    "http-server": "^14.1.0"
+  }
+}

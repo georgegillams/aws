@@ -1,2 +1,0 @@
-sudo vim ~/.bashrc
-. ~/.bashrc

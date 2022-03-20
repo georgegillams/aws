@@ -1,0 +1,10 @@
+{
+  "name": "aws",
+  "version": "1.0.0",
+  "repository": "git@github.com:georgegillams/aws.git",
+  "author": "George Gillams <code@georgegillams.co.uk>",
+  "license": "MIT",
+  "scripts": {
+    "generate": "node nginx/generate-nginx-configs.js"
+  }
+}

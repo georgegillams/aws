@@ -21,14 +21,17 @@ These scripts are responsible for
 - Running redis under pm2.
 - Running regular cron tasks:
   - Renewing certificates.
-  - Redeploying individual projects - if a `build.zip` file has been pushed to a project, it will be extracted and replace the existing `build` directory within that project.
+- Redeploying projects
 
-For a project to be deployed under the NEO system:
+For a project to be deployed under the system:
 
-- A zip folder should be transferred to `/home/ubuntu/neo/` named `PROJECT-TIMESTAMP.zip`.
-- The zip should contain a file `/config/aws/pm2Name` containing the PM2 instance name and nothing else.
-- The zip should contain a setup script `/config/aws/setup.sh` if required.
-- `setup.sh` should do anything that's needed to make the project work (install dependencies etc).
+- A zip folder should be transferred to `/home/ubuntu/neo/` named `PROJECT_NAME---HASH.zip`.
+- The zip should contain a file `meta.json` containing the following:
+  - is_default_site (optional, default false)
+  - server_port
+  - server_name
+  - redirect_to_www
+- The zip should contain a docker image in a file `docker-image.tar` with the same name as the zip folder.
 
 ## Project ports
 
