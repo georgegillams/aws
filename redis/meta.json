@@ -1,0 +1,7 @@
+{
+  "is_webapp": false,
+  "is_default_site": false,
+  "host_port": 6379,
+  "docker_port": 6379,
+  "server_name": "redis"
+}

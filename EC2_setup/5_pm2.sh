@@ -1,9 +1,6 @@
 pm2 startup | grep sudo | bash
 
 cd /home/ubuntu/aws
-pm2 start /home/ubuntu/aws/redis/ecosystem.config.js
-
-cd /home/ubuntu/aws
 pm2 start /home/ubuntu/aws/re-deployer/ecosystem.config.js
 
 pm2 save

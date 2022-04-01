@@ -5,6 +5,5 @@
   "author": "George Gillams <code@georgegillams.co.uk>",
   "license": "MIT",
   "scripts": {
-    "generate": "node nginx/generate-nginx-configs.js"
   }
 }

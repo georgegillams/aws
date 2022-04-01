@@ -7,7 +7,7 @@ if ! [ $image_name ]; then
   exit 1
 fi
 
-declare -a expected_args=("BUILT_AT")
+declare -a expected_args=("REDIS_PASSWORD")
 for i in "${expected_args[@]}"
 do
   arg_value="$(printenv $i)"
@@ -25,7 +25,7 @@ fi
 
 # build new image
 docker build \
-  --build-arg BUILT_AT="$BUILT_AT" \
+  --build-arg REDIS_PASSWORD="$REDIS_PASSWORD" \
   --platform linux/arm64 -t $image_name -f Dockerfile .
 
 # export image

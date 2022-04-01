@@ -1,0 +1,8 @@
+{
+  "is_webapp": true,
+  "is_default_site": false,
+  "host_port": 3010,
+  "docker_port": 3000,
+  "server_name": "sample-deployable-app.georgegillams.co.uk",
+  "redirect_to_www": false
+}

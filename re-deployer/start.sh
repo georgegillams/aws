@@ -1,3 +1,3 @@
 #!/bin/bash
 
-node re-deployer.js
+node re-deployer/re-deployer.js
