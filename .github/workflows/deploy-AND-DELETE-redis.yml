@@ -30,6 +30,8 @@ jobs:
           echo "zipFileName ${{ env.ZIP_FILE_NAME }}"
           zipFileName=${{ env.ZIP_FILE_NAME }}
           /bin/bash ./scripts/docker/export-prod.sh $zipFileName
+        env:
+          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
 
       - name: deploy
         run: |
