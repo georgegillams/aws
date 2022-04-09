@@ -24,14 +24,14 @@ jobs:
         run: sudo apt install -y qemu-user-static binfmt-support
 
       - name: build docker image
+        env:
+          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
         run: |
           sudo apt install -y qemu-user-static binfmt-support
           cd redis
           echo "zipFileName ${{ env.ZIP_FILE_NAME }}"
           zipFileName=${{ env.ZIP_FILE_NAME }}
           /bin/bash ./scripts/docker/export-prod.sh $zipFileName
-        env:
-          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
 
       - name: deploy
         run: |
