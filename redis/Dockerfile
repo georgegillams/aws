@@ -13,5 +13,5 @@ COPY . .
 RUN sed -i -e "s/PASSWORD_PLACEHOLDER/$REDIS_PASSWORD/g" ./redis.conf
 RUN cp ./redis.conf /etc/redis/redis.conf
 RUN touch /etc/redis/redis_log
-EXPOSE 6379
+
 CMD ["redis-server", "/etc/redis/redis.conf"]
