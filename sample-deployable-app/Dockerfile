@@ -10,5 +10,5 @@ COPY . .
 RUN rm -rf node_modules
 RUN sed -i -e "s/BUILT_AT_PLACEHOLDER/$BUILT_AT/g" ./src/index.html
 RUN yarn install
-EXPOSE 3000
+
 CMD ["yarn", "start"]
