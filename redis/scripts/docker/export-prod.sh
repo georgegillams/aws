@@ -24,7 +24,7 @@ if (docker images | grep $image_name > /dev/null); then
 fi
 
 # build new image
-docker build \
+docker buildx build \
   --build-arg REDIS_PASSWORD="$REDIS_PASSWORD" \
   --platform linux/arm64 -t $image_name -f Dockerfile .
 
