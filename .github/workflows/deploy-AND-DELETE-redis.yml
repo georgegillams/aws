@@ -37,7 +37,7 @@ jobs:
         run: |
           cd redis
           zipFileName=${{ env.ZIP_FILE_NAME }}
-          zip -r $zipFileName docker-image.tar meta.json
+          zip -r $zipFileName.zip docker-image.tar meta.json
           echo "${{ secrets.EC2_RSA }}" > ./identityFile.txt
           chmod 400 ./identityFile.txt
           scp -o "StrictHostKeyChecking=no" -i ./identityFile.txt -r ./$zipFileName.zip ubuntu@ec2-13-40-134-151.eu-west-2.compute.amazonaws.com:/home/ubuntu/departure-lounge/

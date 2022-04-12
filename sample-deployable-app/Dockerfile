@@ -7,7 +7,6 @@ RUN mkdir /opt/app
 WORKDIR /opt/app
 
 COPY . .
-RUN rm -rf node_modules
 RUN sed -i -e "s/BUILT_AT_PLACEHOLDER/$BUILT_AT/g" ./src/index.html
 RUN yarn install
 
