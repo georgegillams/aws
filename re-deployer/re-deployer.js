@@ -366,22 +366,6 @@ const deploy = (fileName) => {
     meta["host_port"] = meta["host_port"] || findUnusedPort();
     console.log(`Current deploy will use port:`, meta["host_port"]);
 
-    if (meta.is_webapp) {
-      let sslConfigured = sslAlreadyConfigured(meta.server_name);
-      if (!sslConfigured) {
-        generateNginxConfig(meta, sslConfigured);
-        try {
-          configureSSL(meta.server_name);
-          sslConfigured = true;
-        } catch (error) {
-          console.log(
-            `Error configuring SSL. This should be done manually and the project redeployed.`
-          );
-        }
-      }
-      generateNginxConfig(meta, sslConfigured);
-    }
-
     const duplicateImage = getMatchingDockerImage(appName, hash);
     if (duplicateImage) {
       throw new Error(
@@ -404,6 +388,35 @@ const deploy = (fileName) => {
       oldPm2Processes,
     });
 
+    // add new docker image
+    const dockerContainerId = execSync(
+      `docker create -t -p ${meta.host_port}:${meta.docker_port} ${fileNameWOExt}`
+    )
+      .toString()
+      .split("\n")[0];
+
+    generatePm2Config(pm2ConfigPath, fileNameWOExt, dockerContainerId);
+
+    // Run with PM2
+    execSync(`pm2 start ${pm2ConfigPath}`);
+
+    // Generate/Update nginx config
+    if (meta.is_webapp) {
+      let sslConfigured = sslAlreadyConfigured(meta.server_name);
+      if (!sslConfigured) {
+        generateNginxConfig(meta, sslConfigured);
+        try {
+          configureSSL(meta.server_name);
+          sslConfigured = true;
+        } catch (error) {
+          console.log(
+            `Error configuring SSL. This should be done manually and the project redeployed.`
+          );
+        }
+      }
+      generateNginxConfig(meta, sslConfigured);
+    }
+
     // Kill PM2 if needed
     oldPm2Processes.forEach((pm2Processes) => {
       execSync(`pm2 delete ${pm2Processes}`);
@@ -417,17 +430,6 @@ const deploy = (fileName) => {
       execSync(`docker image rm --force ${dockerImage}`);
     });
 
-    // add new docker image
-    const dockerContainerId = execSync(
-      `docker create -t -p ${meta.host_port}:${meta.docker_port} ${fileNameWOExt}`
-    )
-      .toString()
-      .split("\n")[0];
-
-    generatePm2Config(pm2ConfigPath, fileNameWOExt, dockerContainerId);
-
-    // Run with PM2
-    execSync(`pm2 start ${pm2ConfigPath}`);
     // PM2 save
     execSync(`pm2 save --force`);
 
