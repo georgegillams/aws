@@ -205,7 +205,7 @@ const readMetaFile = (metaPath, fileNameWOExt) => {
 
   const meta = JSON.parse(fs.readFileSync(metaPath, "utf8"));
   checkKeysExist(meta, ["is_webapp"], fileNameWOExt);
-  const expectedKeys = ["is_webapp", "host_port", "docker_port", "server_name"];
+  const expectedKeys = ["is_webapp", "docker_port", "server_name"];
   if (meta.is_webapp) {
     expectedKeys.push("redirect_to_www");
   }
@@ -291,6 +291,28 @@ const getOldPm2Processes = (appName, newHash) => {
   return getOldAppItems(pm2List, appName, newHash);
 };
 
+const findUnusedPort = () => {
+  const ports = execSync("sudo lsof -nP -iTCP -sTCP:LISTEN")
+    .toString()
+    .split("\n")
+    .map((l) => {
+      if (l.includes("*:")) {
+        const port = l.split("*:")[1].split(" ")[0];
+        return parseInt(port);
+      }
+      return null;
+    })
+    .filter((l) => !!l);
+
+  console.log(`Ports in use:`, ports);
+  for (let possiblePort = 3000; possiblePort < 3999; possiblePort++) {
+    if (!ports.includes(possiblePort)) {
+      return possiblePort;
+    }
+  }
+  return null;
+};
+
 const deploy = (fileName) => {
   const {
     fileNameWOExt,
@@ -341,6 +363,8 @@ const deploy = (fileName) => {
 
     const meta = readMetaFile(metaPath, fileNameWOExt);
     console.table(meta);
+    meta["host_port"] = meta["host_port"] || findUnusedPort();
+    console.log(`Current deploy will use port:`, meta["host_port"]);
 
     if (meta.is_webapp) {
       let sslConfigured = sslAlreadyConfigured(meta.server_name);

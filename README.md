@@ -28,26 +28,19 @@ For a project to be deployed under the system:
 - A zip folder should be transferred to `/home/ubuntu/departure-lounge/` named `PROJECT_NAME---HASH.zip`.
 - The zip should contain a file `meta.json` containing the following:
 
-  - is_default_site (optional, default false)
   - is_webapp
-  - host_port (the port that's exposed to Nginx)
-  - docker_port (the port of the app running inside docker)
+  - docker_port (The port of the app running inside docker)
   - server_name
-  - redirect_to_www (required if webapp)
+  - is_default_site [optional] (Default false)
+  - host_port [optional] (The port that's exposed to Nginx. Defaults to auto-assigned port.)
+  - redirect_to_www [optional] (Required if webapp. Default false.)
 
 - The zip should contain a docker image in a file `docker-image.tar`, and the image should have the same name as the zip folder (`PROJECT_NAME---HASH`).
 
 ## Project ports
 
-Projects should be configured to use the following ports:
+Projects will be assigned ports automatically, with the exception of the following:
 
-| domain                                    | port | default site |
-| ----------------------------------------- | ---- | ------------ |
-| redis                                     | 6379 |              |
-| georgegillams.co.uk                       | 3000 | true         |
-| screen-reader-adventures.com              | 3001 |              |
-| storybook.georgegillams.co.uk             | 3003 |              |
-| webapp-boilerplate.georgegillams.co.uk    | 3004 |              |
-| charlieandgeorge.uk                       | 3006 |              |
-| cardchallenge.georgegillams.co.uk         | 3007 |              |
-| sample-deployable-app.georgegillams.co.uk | 3010 |              |
+| domain | port |
+| ------ | ---- |
+| redis  | 6379 |
