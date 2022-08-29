@@ -291,7 +291,7 @@ const getOldPm2Processes = (appName, newHash) => {
   return getOldAppItems(pm2List, appName, newHash);
 };
 
-const findUnusedPort = () => {
+const getPortsInUse = () => {
   const ports = execSync("sudo lsof -nP -iTCP -sTCP:LISTEN")
     .toString()
     .split("\n")
@@ -303,14 +303,74 @@ const findUnusedPort = () => {
       return null;
     })
     .filter((l) => !!l);
+  return ports;
+};
 
-  console.log(`Ports in use:`, ports);
+const findUnusedPort = () => {
+  const ports = getPortsInUse();
   for (let possiblePort = 3000; possiblePort < 3999; possiblePort++) {
     if (!ports.includes(possiblePort)) {
       return possiblePort;
     }
   }
   return null;
+};
+
+const portInUse = (port) => {
+  const ports = getPortsInUse();
+  return ports.includes(port);
+};
+
+const destroyOldProcesses = (
+  oldPm2Processes,
+  oldDockerContainers,
+  oldDockerImages
+) => {
+  // Kill PM2 if needed
+  oldPm2Processes.forEach((pm2Processes) => {
+    execSync(`pm2 delete ${pm2Processes}`);
+  });
+  // Kill old docker containers if needed
+  oldDockerContainers.forEach((dockerContainer) => {
+    execSync(`docker rm --force ${dockerContainer}`);
+  });
+  // Delete old docker images if needed
+  oldDockerImages.forEach((dockerImage) => {
+    execSync(`docker image rm --force ${dockerImage}`);
+  });
+};
+
+const configureNewProcesses = (meta) => {
+  // Generate/Update nginx config
+  if (meta.is_webapp) {
+    let sslConfigured = sslAlreadyConfigured(meta.server_name);
+    if (!sslConfigured) {
+      generateNginxConfig(meta, sslConfigured);
+      try {
+        configureSSL(meta.server_name);
+        sslConfigured = true;
+      } catch (error) {
+        console.log(
+          `Error configuring SSL. This should be done manually and the project redeployed.`
+        );
+      }
+    }
+    generateNginxConfig(meta, sslConfigured);
+  }
+};
+
+const createNewProcesses = (meta, fileNameWOExt, pm2ConfigPath) => {
+  // add new docker image
+  const dockerContainerId = execSync(
+    `docker create -t -p ${meta.host_port}:${meta.docker_port} ${fileNameWOExt}`
+  )
+    .toString()
+    .split("\n")[0];
+
+  generatePm2Config(pm2ConfigPath, fileNameWOExt, dockerContainerId);
+
+  // Run with PM2
+  execSync(`pm2 start ${pm2ConfigPath}`);
 };
 
 const deploy = (fileName) => {
@@ -363,8 +423,12 @@ const deploy = (fileName) => {
 
     const meta = readMetaFile(metaPath, fileNameWOExt);
     console.table(meta);
+    if (meta["host_port"] && portInUse(meta["host_port"])) {
+      meta["host_port_in_use"] = true;
+    }
     meta["host_port"] = meta["host_port"] || findUnusedPort();
     console.log(`Current deploy will use port:`, meta["host_port"]);
+    console.log(`Port is ${meta["host_port_in_use"] ? "" : "not "}in use`);
 
     const duplicateImage = getMatchingDockerImage(appName, hash);
     if (duplicateImage) {
@@ -388,47 +452,24 @@ const deploy = (fileName) => {
       oldPm2Processes,
     });
 
-    // add new docker image
-    const dockerContainerId = execSync(
-      `docker create -t -p ${meta.host_port}:${meta.docker_port} ${fileNameWOExt}`
-    )
-      .toString()
-      .split("\n")[0];
-
-    generatePm2Config(pm2ConfigPath, fileNameWOExt, dockerContainerId);
-
-    // Run with PM2
-    execSync(`pm2 start ${pm2ConfigPath}`);
-
-    // Generate/Update nginx config
-    if (meta.is_webapp) {
-      let sslConfigured = sslAlreadyConfigured(meta.server_name);
-      if (!sslConfigured) {
-        generateNginxConfig(meta, sslConfigured);
-        try {
-          configureSSL(meta.server_name);
-          sslConfigured = true;
-        } catch (error) {
-          console.log(
-            `Error configuring SSL. This should be done manually and the project redeployed.`
-          );
-        }
-      }
-      generateNginxConfig(meta, sslConfigured);
+    // if port is in use we need to destroy it first. If using a fresh port, we can create the new processes first and then destroy the old ones.
+    if (meta["host_port_in_use"]) {
+      destroyOldProcesses(
+        oldPm2Processes,
+        oldDockerContainers,
+        oldDockerImages
+      );
+      configureNewProcesses(meta);
+      createNewProcesses(meta, fileNameWOExt, pm2ConfigPath);
+    } else {
+      createNewProcesses(meta, fileNameWOExt, pm2ConfigPath);
+      configureNewProcesses(meta);
+      destroyOldProcesses(
+        oldPm2Processes,
+        oldDockerContainers,
+        oldDockerImages
+      );
     }
-
-    // Kill PM2 if needed
-    oldPm2Processes.forEach((pm2Processes) => {
-      execSync(`pm2 delete ${pm2Processes}`);
-    });
-    // Kill old docker containers if needed
-    oldDockerContainers.forEach((dockerContainer) => {
-      execSync(`docker rm --force ${dockerContainer}`);
-    });
-    // Delete old docker images if needed
-    oldDockerImages.forEach((dockerImage) => {
-      execSync(`docker image rm --force ${dockerImage}`);
-    });
 
     // PM2 save
     execSync(`pm2 save --force`);
