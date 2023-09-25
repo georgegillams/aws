@@ -18,6 +18,7 @@ sudo apt-get --yes --force-yes install unzip
 sudo apt-get --yes --force-yes install lxde
 sudo apt-get --yes --force-yes install xrdp
 sudo passwd $USER
+sudo systemctl enable xrdp
 
 # Docker:
 # From https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04
