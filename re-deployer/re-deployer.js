@@ -24,6 +24,9 @@ const NGINX_SITES_ENABLED_LOCATION = DEV_MODE
 const SSL_KEY_PATH = DEV_MODE
   ? "/Users/george.gillams/Documents/letsencrypt/live"
   : "/etc/letsencrypt/live";
+const PM2_LOGS_PATH = DEV_MODE
+  ? "/Users/george.gillams/Documents/pm2/logs"
+  : "/home/ubuntu/.pm2/logs";
 const CHECK_FREQUENCY = DEV_MODE ? TIME_1_SECOND : TIME_5_SECONDS;
 const MAX_UNZIP_ATTEMPT_TIME = DEV_MODE ? TIME_20_SECONDS : TIME_30_MINUTES;
 
@@ -257,7 +260,7 @@ const getPm2Processes = () => {
 const getOldAppItems = (list, appName, newHash) => {
   return list.filter(
     (name) =>
-      name.startsWith(`${appName}---`) && !name.endsWith(`---${newHash}`)
+      name.startsWith(`${appName}---`) && !name.includes(`---${newHash}`)
   );
 };
 
@@ -289,6 +292,11 @@ const getOldDeployDirectories = (appName, newHash) => {
 const getOldPm2Processes = (appName, newHash) => {
   const pm2List = getPm2Processes().map((entry) => entry.name);
   return getOldAppItems(pm2List, appName, newHash);
+};
+
+const getOldPm2Logs = (appName, newHash) => {
+  const pm2Logs = execSync(`ls ${PM2_LOGS_PATH}`).toString().split("\n");
+  return getOldAppItems(pm2Logs, appName, newHash);
 };
 
 const getPortsInUse = () => {
@@ -341,6 +349,7 @@ const destroyOldProcesses = (
 };
 
 const configureNewProcesses = (meta) => {
+  console.log(`Configuring new process for ${meta.server_name}`);
   // Generate/Update nginx config
   if (meta.is_webapp) {
     let sslConfigured = sslAlreadyConfigured(meta.server_name);
@@ -360,6 +369,7 @@ const configureNewProcesses = (meta) => {
 };
 
 const createNewProcesses = (meta, fileNameWOExt, pm2ConfigPath) => {
+  console.log(`Creating new processes for ${fileNameWOExt}`);
   // add new docker image
   const dockerContainerId = execSync(
     `docker create -t -p ${meta.host_port}:${meta.docker_port} ${fileNameWOExt}`
@@ -438,18 +448,22 @@ const deploy = (fileName) => {
     }
 
     // Load to docker
+    console.log(`Loading docker image`);
     execSync(`docker load < ${path.join(extractionPath, "docker-image.tar")}`);
+    console.log(`Docker image loaded`);
 
     const oldDockerImages = getOldDockerImages(appName, hash);
     const oldDockerContainers = getOldDockerContainers(appName, hash);
     const oldDeployDirectories = getOldDeployDirectories(appName, hash);
     const oldPm2Processes = getOldPm2Processes(appName, hash);
+    const oldPm2Logs = getOldPm2Logs(appName, hash);
     console.log(`oldDockerImages`, oldDockerImages);
     console.table({
       oldDockerImages,
       oldDockerContainers,
       oldDeployDirectories,
       oldPm2Processes,
+      oldPm2Logs,
     });
 
     // if port is in use we need to destroy it first. If using a fresh port, we can create the new processes first and then destroy the old ones.
@@ -477,6 +491,10 @@ const deploy = (fileName) => {
     // Delete old version files
     oldDeployDirectories.forEach((directory) => {
       execSync(`rm -rf ${path.join(DEPARTURE_LOUNGE_LOCATION, directory)}`);
+    });
+    oldPm2Logs.forEach((oldLog) => {
+      console.log(`Removing old log ${oldLog}`);
+      execSync(`rm ${path.join(PM2_LOGS_PATH, oldLog)}`);
     });
   } catch (error) {
     console.error(`Error deploying: ${error}`);
