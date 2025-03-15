@@ -449,7 +449,7 @@ const deploy = (fileName) => {
 
     // Load to docker
     console.log(`Loading docker image`);
-    execSync(`docker load < ${path.join(extractionPath, "docker-image.tar")}`);
+    execSync(`docker load < ${dockerImagePath}`);
     console.log(`Docker image loaded`);
 
     const oldDockerImages = getOldDockerImages(appName, hash);
@@ -492,10 +492,15 @@ const deploy = (fileName) => {
     oldDeployDirectories.forEach((directory) => {
       execSync(`rm -rf ${path.join(DEPARTURE_LOUNGE_LOCATION, directory)}`);
     });
+
+    // Delete old pm2 logs
     oldPm2Logs.forEach((oldLog) => {
       console.log(`Removing old log ${oldLog}`);
-      execSync(`rm ${path.join(PM2_LOGS_PATH, oldLog)}`);
+      execSync(`rm -f ${path.join(PM2_LOGS_PATH, oldLog)}`);
     });
+
+    // Delete new docker-image file. It is not needed having already been loaded into docker
+    execSync(`rm -f ${dockerImagePath}`);
   } catch (error) {
     console.error(`Error deploying: ${error}`);
     delete unzipAttemptTime[fileNameWOExt];
