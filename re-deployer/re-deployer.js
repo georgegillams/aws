@@ -27,6 +27,9 @@ const SSL_KEY_PATH = DEV_MODE
 const PM2_LOGS_PATH = DEV_MODE
   ? "/Users/george.gillams/Documents/pm2/logs"
   : "/home/ubuntu/.pm2/logs";
+const persistedDataPath = DEV_MODE
+  ? "/Users/george.gillams/Documents/persisted-data"
+  : `/home/ubuntu/persisted-data`;
 const CHECK_FREQUENCY = DEV_MODE ? TIME_1_SECOND : TIME_5_SECONDS;
 const MAX_UNZIP_ATTEMPT_TIME = DEV_MODE ? TIME_20_SECONDS : TIME_30_MINUTES;
 
@@ -368,11 +371,28 @@ const configureNewProcesses = (meta) => {
   }
 };
 
+const createPersistedDataDirectory = (serverName) => {
+  console.log(
+    `Creating persisted data directory: ${persistedDataPath}/${serverName}`
+  );
+  execSync(`mkdir -p ${persistedDataPath}/${serverName}`);
+  return `${persistedDataPath}/${serverName}`;
+};
+
 const createNewProcesses = (meta, fileNameWOExt, pm2ConfigPath) => {
   console.log(`Creating new processes for ${fileNameWOExt}`);
+
+  // Create persisted data directory if needed
+  let volumeMapping = "";
+  if (meta.persisted_data_path) {
+    const serverPersistedPath = createPersistedDataDirectory(meta.server_name);
+    volumeMapping = `-v ${serverPersistedPath}:${meta.persisted_data_path}`;
+    console.log(`Adding volume mapping: ${volumeMapping}`);
+  }
+
   // add new docker image
   const dockerContainerId = execSync(
-    `docker create -t -p ${meta.host_port}:${meta.docker_port} ${fileNameWOExt}`
+    `docker create -t -p ${meta.host_port}:${meta.docker_port} ${volumeMapping} ${fileNameWOExt}`
   )
     .toString()
     .split("\n")[0];
