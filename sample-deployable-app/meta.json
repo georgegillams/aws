@@ -3,5 +3,6 @@
   "is_default_site": false,
   "docker_port": 3000,
   "server_name": "sample-deployable-app.georgegillams.co.uk",
-  "redirect_to_www": false
+  "redirect_to_www": false,
+  "persisted_data_path": "/opt/app/persisted-data"
 }

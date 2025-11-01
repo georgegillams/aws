@@ -6,6 +6,8 @@ ARG BUILT_AT
 RUN mkdir /opt/app
 WORKDIR /opt/app
 
+RUN mkdir persisted-data
+
 COPY . .
 RUN sed -i -e "s/BUILT_AT_PLACEHOLDER/$BUILT_AT/g" ./src/index.html
 RUN yarn install
